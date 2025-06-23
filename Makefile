@@ -24,7 +24,7 @@ $(OBJ_DIR):
 	mkdir -p $@
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
