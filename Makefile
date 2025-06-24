@@ -2,7 +2,7 @@ CC = cc
 FLAGS =
 INCLUDE = -I ./include -I ./libft
 SRC_DIR = src
-CFILES = main.c
+CFILES = main.c cracked_atoi.c error_handler.c parser.c
 OBJ_DIR = $(SRC_DIR)/obj
 OBJ = $(addprefix $(OBJ_DIR)/,$(CFILES:.c=.o)) 
 NAME = push_swap
