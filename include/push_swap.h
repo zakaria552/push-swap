@@ -2,6 +2,7 @@
 #define H_PUSH_SWAP_H
 
 #include "libft.h"
+#include "operations.h"
 
 // error handlers
 void clean_exit(int **nums);
