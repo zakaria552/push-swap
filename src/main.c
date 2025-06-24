@@ -2,6 +2,12 @@
 
 int main(int argc, char **args)
 {
-	ft_printf("hellooo");
+	int *nums;
+
+	nums = NULL;
+	if (argc < 3)
+		return 0;
+	parse(argc, args, &nums);
+
 	return 0;
 }
