@@ -4,7 +4,6 @@ static int is_duplicate(int argc, int *nums, int num, int stop);
 
 void parse(int argc, char **args, int **nums)
 {
-	ft_printf("Parsing...\n");
 	*nums = ft_calloc(argc - 1, sizeof(int));
 	if (!*nums)
 		clean_exit(NULL);
@@ -15,18 +14,17 @@ static void stratoi(int argc, char **args, int **nums)
 {
 	int error;
 	int i;
+	int j;
 
-	ft_printf("atoiting\n");
-	i = 0;
-	error = 0;
+	i = j = error = 0;
 	while (++i < argc)
 	{
-		(*nums)[i] = cracked_atoi(args[i], &error);
+		(*nums)[j] = cracked_atoi(args[i], &error);
 		if (error)
 			clean_exit(nums);
-		if(is_duplicate(argc, *nums, (*nums)[i], i))
+		if(is_duplicate(argc, *nums, (*nums)[j], j))
 			clean_exit(nums);
-		ft_printf("d: %d \n", (*nums)[i]);
+		j++;
 	}
 }
 static int is_duplicate(int argc, int *nums, int num, int stop)
