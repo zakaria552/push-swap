@@ -1,10 +1,9 @@
 #include "push_swap.h"
 
 static void	sort_radix_nth_bit(int n, unsigned int *ptr_first, unsigned *ptr_last);
-void rotate_arr(unsigned int * num, unsigned int *ptr_last);
 static int	max_bit(unsigned int *norm_nums, int size);
 
-void	radix_sort(int argc, unsigned int *norm_nums, int *sorted_nums)
+void	radix_sort(int argc, unsigned int *norm_nums)
 {
 	const int max = max_bit(norm_nums, argc - 1);
 	unsigned int *p1;
@@ -49,7 +48,6 @@ static void	sort_radix_nth_bit(int n, unsigned int *ptr_first, unsigned *ptr_las
 void rotate_arr(unsigned int * num, unsigned int *ptr_last)
 {
 	int tmp;
-	unsigned int *start = num; 
 	int i;
 
 	tmp = *num;
@@ -61,11 +59,26 @@ void rotate_arr(unsigned int * num, unsigned int *ptr_last)
 	}
 	*ptr_last = tmp;
 }
+void rev_rotate_arr(unsigned int * num, unsigned int *ptr_last)
+{
+	int tmp;
+    unsigned int *start = ptr_last; 
+    int i;
+
+    tmp = *ptr_last;
+    i = 0;
+    while (start > num)
+    {
+        *start = *(start - 1);
+        start--;
+    }
+    *num = tmp;
+}
 
 static int	max_bit(unsigned int *norm_nums, int size)
 {
 	int i;
-	int max_n;
+	unsigned int max_n;
 	i = -1;
 
 	max_n = 0;
