@@ -8,6 +8,7 @@ int main(int argc, char **args)
 	if (argc < 3)
 		return 0;
 	parse(argc, args, &nums);
-
+	solve(argc, &nums);
+	free(nums);
 	return 0;
 }
