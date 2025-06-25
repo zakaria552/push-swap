@@ -33,4 +33,5 @@ int get_index(int *nums, int size, int num)
 		if (nums[i] == num)
 			return (i);
 	}
+	return (0);
 }
