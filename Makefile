@@ -1,5 +1,5 @@
 CC = cc
-FLAGS =
+FLAGS = -Wall -Wextra -Werror
 INCLUDE = -I ./include -I ./libft
 SRC_DIR = src
 CFILES = main.c cracked_atoi.c operations.c error_handler.c parser.c solver.c bubble_sort.c radix.c
