@@ -15,7 +15,9 @@ num_of_moves=$(cat $moves | wc -l)
 r=$(cat $result)
 
 echo "Test: $1 numbers"
+#echo " $nums"
 echo "Moves: $num_of_moves"
 echo "Result: $r" 
+#cat $moves
 
 rm -rf $moves $result
