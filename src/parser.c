@@ -1,6 +1,6 @@
 #include "push_swap.h"
 static void stratoi(int argc, char **args, int **nums);
-static int is_duplicate(int argc, int *nums, int num, int stop);
+static int is_duplicate(int *nums, int num, int stop);
 
 void parse(int argc, char **args, int **nums)
 {
@@ -22,12 +22,12 @@ static void stratoi(int argc, char **args, int **nums)
 		(*nums)[j] = cracked_atoi(args[i], &error);
 		if (error)
 			clean_exit(nums);
-		if(is_duplicate(argc, *nums, (*nums)[j], j))
+		if(is_duplicate(*nums, (*nums)[j], j))
 			clean_exit(nums);
 		j++;
 	}
 }
-static int is_duplicate(int argc, int *nums, int num, int stop)
+static int is_duplicate(int *nums, int num, int stop)
 {
 	int i;
 
