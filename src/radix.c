@@ -1,17 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   radix.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zfarah <zfarah@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 12:37:40 by zfarah            #+#    #+#             */
+/*   Updated: 2025/06/26 12:55:29 by zfarah           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static void	sort_radix_nth_bit(int n, unsigned int *ptr_first, unsigned *ptr_last);
+static void	sort_radix_nth_bit(int n, unsigned int *ptr_first,
+				unsigned int *ptr_last);
 static int	max_bit(unsigned int *norm_nums, int size);
 
 void	radix_sort(int argc, unsigned int *norm_nums)
 {
-	const int max = max_bit(norm_nums, argc - 1);
-	unsigned int *p1;
-	unsigned int *p2;	
-	int i;
+	const int		max = max_bit(norm_nums, argc - 1);
+	unsigned int	*p1;
+	unsigned int	*p2;
+	int				i;
 
 	i = -1;
-	while (++i < max)	
+	while (++i < max)
 	{
 		p1 = norm_nums;
 		p2 = norm_nums + argc - 2;
@@ -19,14 +32,15 @@ void	radix_sort(int argc, unsigned int *norm_nums)
 	}
 }
 
-static void	sort_radix_nth_bit(int n, unsigned int *ptr_first, unsigned *ptr_last)
+static void	sort_radix_nth_bit(int n, unsigned int *ptr_first,
+		unsigned int *ptr_last)
 {
-	unsigned int *p2;
-	int sb_pushes;
-	
+	unsigned int	*p2;
+	int				sb_pushes;
+
 	p2 = ptr_last;
 	sb_pushes = 0;
-	while (ptr_first <= p2)	
+	while (ptr_first <= p2)
 	{
 		if (((*ptr_first >> n) & 1))
 		{
@@ -45,10 +59,10 @@ static void	sort_radix_nth_bit(int n, unsigned int *ptr_first, unsigned *ptr_las
 		operate(E_OP_PUSH_A);
 }
 
-void rotate_arr(unsigned int * num, unsigned int *ptr_last)
+void	rotate_arr(unsigned int *num, unsigned int *ptr_last)
 {
-	int tmp;
-	int i;
+	int	tmp;
+	int	i;
 
 	tmp = *num;
 	i = 0;
@@ -59,30 +73,32 @@ void rotate_arr(unsigned int * num, unsigned int *ptr_last)
 	}
 	*ptr_last = tmp;
 }
-void rev_rotate_arr(unsigned int * num, unsigned int *ptr_last)
-{
-	int tmp;
-    unsigned int *start = ptr_last; 
-    int i;
 
-    tmp = *ptr_last;
-    i = 0;
-    while (start > num)
-    {
-        *start = *(start - 1);
-        start--;
-    }
-    *num = tmp;
+void	rev_rotate_arr(unsigned int *num, unsigned int *ptr_last)
+{
+	int				tmp;
+	unsigned int	*start;
+	int				i;
+
+	start = ptr_last;
+	tmp = *ptr_last;
+	i = 0;
+	while (start > num)
+	{
+		*start = *(start - 1);
+		start--;
+	}
+	*num = tmp;
 }
 
 static int	max_bit(unsigned int *norm_nums, int size)
 {
-	int i;
-	unsigned int max_n;
-	i = -1;
+	int				i;
+	unsigned int	max_n;
 
+	i = -1;
 	max_n = 0;
-	while (++i < size)	
+	while (++i < size)
 	{
 		if (max_n < norm_nums[i])
 			max_n = norm_nums[i];
