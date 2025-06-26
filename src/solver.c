@@ -1,14 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solver.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zfarah <zfarah@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 12:46:18 by zfarah            #+#    #+#             */
+/*   Updated: 2025/06/26 12:47:28 by zfarah           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static void normalize_nums(int argc, int **nums, unsigned int **norm_nums, int **sorted);
-static void solve_stack_of_three(unsigned int *nums);
+static void	normalize_nums(int argc, int **nums, unsigned int **norm_nums,
+				int **sorted);
+static void	solve_stack_of_three(unsigned int *nums);
 static void	solve_stack_of_two(unsigned int *nums);
-static void solve_stack_of_five(int argc, unsigned int *nums);
+static void	solve_stack_of_five(int argc, unsigned int *nums);
 
 void	solve(int argc, int **nums)
 {
-	unsigned int *norm_nums;	
-	int * sorted_nums;
+	unsigned int	*norm_nums;
+	int				*sorted_nums;
 
 	normalize_nums(argc, nums, &norm_nums, &sorted_nums);
 	if (argc - 1 == 2)
@@ -17,15 +30,16 @@ void	solve(int argc, int **nums)
 		solve_stack_of_three(norm_nums);
 	else if (argc - 1 == 5)
 		solve_stack_of_five(argc, norm_nums);
-	else 
+	else
 		radix_sort(argc, norm_nums);
 	free(norm_nums);
 	free(sorted_nums);
 }
 
-static void normalize_nums(int argc, int **nums, unsigned int **norm_nums, int **sorted)
+static void	normalize_nums(int argc, int **nums, unsigned int **norm_nums,
+		int **sorted)
 {
-	int i;
+	int	i;
 
 	*norm_nums = ft_calloc(argc - 1, sizeof(int));
 	if (*norm_nums == NULL)
@@ -43,7 +57,7 @@ static void normalize_nums(int argc, int **nums, unsigned int **norm_nums, int *
 		(*norm_nums)[i] = get_index(*sorted, argc - 1, (*nums)[i]);
 }
 
-static void solve_stack_of_three(unsigned int *nums)
+static void	solve_stack_of_three(unsigned int *nums)
 {
 	if (nums[0] > nums[1] && nums[0] > nums[2])
 	{
@@ -51,15 +65,15 @@ static void solve_stack_of_three(unsigned int *nums)
 		rotate_arr(nums, nums + 2);
 		if (nums[0] > nums[1] && operate(E_OP_SWAP_A))
 			rotate_arr(nums, nums + 1);
-		return;
+		return ;
 	}
 	if (nums[2] > nums[1] && nums[2] > nums[0])
 	{
 		if (nums[0] > nums[1] && operate(E_OP_SWAP_A))
-			rotate_arr(nums, nums + 1);	
-		return;
-	}	
-	rev_rotate_arr(nums, nums + 2);	
+			rotate_arr(nums, nums + 1);
+		return ;
+	}
+	rev_rotate_arr(nums, nums + 2);
 	operate(E_OP_REV_ROTATE_A);
 	if (nums[0] > nums[1] && operate(E_OP_SWAP_A))
 		rotate_arr(nums, nums + 1);
@@ -67,31 +81,34 @@ static void solve_stack_of_three(unsigned int *nums)
 
 static void	solve_stack_of_two(unsigned int *nums)
 {
-	int tmp;
+	int	tmp;
 
 	if (*nums < *(nums + 1))
-		return;
+		return ;
 	tmp = *nums;
 	*nums = *(nums + 1);
 	*(nums + 1) = tmp;
 	operate(E_OP_ROTATE_A);
 }
 
-static void solve_stack_of_five(int argc, unsigned int *nums)
+static void	solve_stack_of_five(int argc, unsigned int *nums)
 {
-	const char *ops1[] = {"pb", "sa pb", "ra ra pb", "rra rra pb", "rra pb"};
-	const char *ops2[] = {"pb", "ra pb", "ra ra pb", "rra pb"};
-	unsigned int *sa = nums;
-	unsigned int *sb = NULL;
+	const char		*ops1[] = {"pb", "sa pb", "ra ra pb",
+		"rra rra pb", "rra pb"};
+	const char		*ops2[] = {"pb", "ra pb", "ra ra pb", "rra pb"};
+	unsigned int	*sa;
+	unsigned int	*sb;
 
-	peform_operations(ops1[get_index((int *) sa, argc - 1, 0)], sa, nums + 4);
+	sa = nums;
+	sb = NULL;
+	peform_operations(ops1[get_index((int *)sa, argc - 1, 0)], sa, nums + 4);
 	operate(E_OP_PUSH_B);
-	sb = sa;	
+	sb = sa;
 	sa++;
-	peform_operations(ops2[get_index((int *) sa, argc - 1, 1)], sa, nums + 4);
+	peform_operations(ops2[get_index((int *)sa, argc - 1, 1)], sa, nums + 4);
 	operate(E_OP_PUSH_B);
 	sa++;
 	solve_stack_of_three(sa);
-	operate(E_OP_PUSH_A);	
-	operate(E_OP_PUSH_A);	
+	operate(E_OP_PUSH_A);
+	operate(E_OP_PUSH_A);
 }
