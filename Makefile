@@ -14,6 +14,9 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT)
 	$(CC) $(FLAGS) $(INCLUDE) $(OBJ) $(LIBFT)  -o $@
 
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
 	$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
@@ -22,8 +25,10 @@ $(OBJ_DIR):
 
 clean:
 	rm -rf $(OBJ_DIR)
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
